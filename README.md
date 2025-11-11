@@ -14,11 +14,11 @@ The `Mirage Network` is an anonymous network built on a `micro-service` architec
 
 ## Releases
 
-All cmd programs are compiled for {`amd64`, `arm64`} ARCH and {`windows`, `linux`, `darwin`} OS as pattern = `appname_arch_os`. In total, one application is compiled into six versions. The entire list of releases can be found here: [github.com/number571/hidden-lake/releases](https://github.com/number571/hidden-lake/releases "releases"). 
+All cmd programs are compiled for {`amd64`, `arm64`} ARCH and {`windows`, `linux`, `darwin`} OS as pattern = `appname_arch_os`. In total, one application is compiled into six versions. The entire list of releases can be found here: [github.com/miragef2f/hidden-lake/releases](https://github.com/miragef2f/mirage-network/releases "releases"). 
 
 ## Dependencies
 
-1. Go library [github.com/number571/go-peer](https://github.com/number571/go-peer "go-peer") (used by `cmd/Mirage`)
+1. Go library [github.com/miragef2f/go-peer](https://github.com/miragef2f/go-peer "go-peer") (used by `cmd/Mirage`)
 2. Go library [golang.org/x/net](https://golang.org/x/net "x/net") (used by `cmd/Mirage/Mirage-messenger`)
 3. CSS/JS library [getbootstrap.com](https://getbootstrap.com "bootstrap") (used by `cmd/Mirage/Mirage-messenger,cmd/Mirage/Mirage-filesharer`)
 
@@ -82,14 +82,14 @@ Launching an anonymous network is primarily the launch of an anonymizing `Mirage
 ### 1. Running from source code
 
 ```bash
-$ go install github.com/number571/hidden-lake/cmd/Mirage@latest
+$ go install github.com/miragef2f/hidden-lake/cmd/Mirage@latest
 $ Mirage
 ```
 
 ### 2. Running from release version
 
 ```bash
-$ wget https://github.com/number571/hidden-lake/releases/latest/download/Mirage_amd64_linux
+$ wget https://github.com/miragef2f/hidden-lake/releases/latest/download/Mirage_amd64_linux
 $ chmod +x Mirage_amd64_linux
 $ ./Mirage_amd64_linux
 ```
