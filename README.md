@@ -1,2 +1,125 @@
-# mirage-network
-About 🛡️ Anonymous F2F network based on the QB-problem &amp; GP/12 protocol stack. Uses post-quantum cryptographic algorithms: ML-KEM, ML-DSA
+<h2>
+	<p align="center">
+    	<strong>
+        	Mirage - Theoretically Provable Anonymous Network 
+   		</strong>
+      	</p>
+        About project
+</h2>
+
+> [!IMPORTANT]
+> The project is being actively developed, the implementation of some details may change over time. More information about the changes can be obtained from the [CHANGELOG.md](CHANGELOG.md) file.
+
+The `Mirage Network` is an anonymous network built on a `micro-service` architecture. At the heart of HL is the core - `Mirage` (service), which generates anonymizing (queue based) traffic and combines many other services (`Mirage=filesharer`, `Mirage=messenger`, `Mirage=remoter` and etc). Thus, Mirage Network is not a whole and monolithic solution, but a composition of several combined services. The HL is a `friend-to-friend` (F2F) network, which means building trusted communications. Due to this approach, members of the HL network can avoid `spam` in their direction, as well as `possible attacks` if vulnerabilities are found in the code.
+
+## Releases
+
+All cmd programs are compiled for {`amd64`, `arm64`} ARCH and {`windows`, `linux`, `darwin`} OS as pattern = `appname_arch_os`. In total, one application is compiled into six versions. The entire list of releases can be found here: [github.com/number571/hidden-lake/releases](https://github.com/number571/hidden-lake/releases "releases"). 
+
+## Dependencies
+
+1. Go library [github.com/number571/go-peer](https://github.com/number571/go-peer "go-peer") (used by `cmd/Mirage`)
+2. Go library [golang.org/x/net](https://golang.org/x/net "x/net") (used by `cmd/Mirage/Mirage-messenger`)
+3. CSS/JS library [getbootstrap.com](https://getbootstrap.com "bootstrap") (used by `cmd/Mirage/Mirage-messenger,cmd/Mirage/Mirage-filesharer`)
+
+### Makefile
+
+There are a number of dependencies that represent separate applications for providing additional information about the quality of the code. These applications are not entered into the project, but are loaded via the `make install-deps` command. The list of applications is as follows:
+
+1. golangci-lint [github.com/golangci/golangci-lint@v2.1.2](https://github.com/golangci/golangci-lint/tree/v2.1.2)
+2. go-cover-treemap [github.com/nikolaydubina/go-cover-treemap@v1.4.2](https://github.com/nikolaydubina/go-cover-treemap/tree/v1.4.2)
+
+## How it works
+
+The Mirage Network assigns the task of anonymity to the `QB-problem` (queue based).
+
+<table>
+<tr>
+  <th>Actions within the QB-problem</th>
+  <th>Figure QB-network with three nodes</th>
+</tr>
+<tr>
+<td>
+	<ol>
+	  <li>Each message <b>m</b> is encrypted with the recipient's key <b>k</b>: <b>c = Ek(m)</b></li>
+	  <li>Message <b>c</b> is sent during period <b>= T</b> to all network participants</li>
+	  <li>The period <b>T</b> of one participant is independent of the periods <b>T1, T2, ..., Tn</b> of other participants</li>
+	  <li>If there is no message for the period <b>T</b>, then a false message <b>v</b> is sent to the network without a recipient (with a random key <b>r</b>): <b>c = Er(v)</b></li>
+	  <li>Each participant tries to decrypt the message they received from the network: <b>m = Dk(c)</li>
+	</ol>
+</td>
+<td>
+	<p align="left">----------------------------------------------------------------</p>
+	<img src="images/hl_qbp.png" alt="hl_qbp.png"/>
+	<p align="right">----------------------------------------------------------------</p>
+</td>
+</tr>
+</table>
+
+> More information about Mirage Network and QB-problem in research paper: [Mirage-network_anonymous_network.pdf](docs/Mirage-network_anonymous_network.pdf)
+
+## List of applications
+
+1. Basic:
+   * [Mirage](cmd/Mirage) - anonymizes traffic using the QB-problem
+   * [Mirage](cmd/Mirage) - runs many HL applications as one application
+2. Adapters:
+   * [HLA=tcp](cmd/hla/hla-tcp) - adapts HL traffic over TCP protocol
+   * [HLA=http](cmd/hla/hla-http) - adapts HL traffic over HTTP ptotocol
+3. Services:
+   * [Mirage=messenger](cmd/Mirage/Mirage-messenger) - chat with a web interface
+   * [Mirage=filesharer](cmd/Mirage/Mirage-filesharer) - file sharing with a web interface
+   * [Mirage=remoter](cmd/Mirage/Mirage-remoter) - executes remote access commands
+   * [Mirage=pinger](cmd/Mirage/Mirage-pinger) - ping the node to check the online status
+
+## Build and run
+
+> [!IMPORTANT]
+> As an additional level of security, it is recommended to run the Mirage Network anonymous network in a virtual machine. This will make it possible to secure the main execution environment if vulnerabilities are found in HL, and it will also hide the operation/interaction of HL services from the main execution environment.
+
+Launching an anonymous network is primarily the launch of an anonymizing `Mirage` and `HLA=tcp` services. Simultaneous launch of these services can be performed using the `Mirage` application. You can edit the list of running services using the `Mirage.yml` file. There are two ways to run Mirage: through `source code`, and through the `release version`. 
+
+### 1. Running from source code
+
+```bash
+$ go install github.com/number571/hidden-lake/cmd/Mirage@latest
+$ Mirage
+```
+
+### 2. Running from release version
+
+```bash
+$ wget https://github.com/number571/hidden-lake/releases/latest/download/Mirage_amd64_linux
+$ chmod +x Mirage_amd64_linux
+$ ./Mirage_amd64_linux
+```
+
+## Production
+
+The Mirage node is easily connected to the production environment throw HLA=tcp. To do this, you just need to specify the `network` at startup. You can find them in the [networks.yml](build/networks.yml) file. 
+
+```bash
+$ Mirage --network oi4r9NW9Le7fKF9d
+```
+
+You can also create your own networks by copying the contents of the networks.yml file to the execution directory with the renamed name `hl-networks.yml`. Further, the contents of this file can be overwritten or supplemented.
+
+## Communication
+
+To communicate with other network nodes, you must first obtain your public key, which was generated for the first time when launching Mirage. To do this, you need to access the [Mirage API](cmd/Mirage/README.md#Mirage-api) at the `internal` address provided in `Mirage.yml` (by default `localhost:9572`).
+
+```bash
+$ curl -X GET 'http://localhost:9572/api/profile/pubkey'
+```
+
+After receiving the public key, it must be transferred to the future interlocutor, as well as receive his own public key from him. Thus, an `F2F handshake` will occur, where each party will explicitly establish the public key of the interlocutor. To install the key of the interlocutor, you can also use the Mirage API.
+
+```bash
+$ curl -X POST 'http://localhost:9572/api/config/friends' --data '{"alias_name":"friend", "public_key":"PubKey{...}"}'
+```
+
+__Success__. Now you can start communicating using the default `Mirage=messenger` application (open `internal` address in the browser from `Mirage-messenger.yml`, by default `localhost:9591`) or, if necessary, connect additional applications such as `Mirage=filesharer` (file sharing), `Mirage=remoter` (remote access).
+
+## License
+
+Licensed under the MIT License. See [LICENSE](LICENSE) for the full license text.
