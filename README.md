@@ -1,3 +1,5 @@
+<img src="https://media.discordapp.net/attachments/663454145751023636/1437849437505585182/Add_a_heading_2.png?ex=6914bd23&is=69136ba3&hm=4dc060a2979ae9aba51f2f0bde9dc5ec660091e0a6ef6d5e920e02c5f7454b00&=&format=webp&quality=lossless&width=1169&height=390" alt="hl_logo.png"/>
+
 <h2>
 	<p align="center">
     	<strong>
