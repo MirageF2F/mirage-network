@@ -14,7 +14,7 @@ The `Mirage Network` is an anonymous network built on a `micro-service` architec
 
 ## Releases
 
-All cmd programs are compiled for {`amd64`, `arm64`} ARCH and {`windows`, `linux`, `darwin`} OS as pattern = `appname_arch_os`. In total, one application is compiled into six versions. The entire list of releases can be found here: [github.com/miragef2f/hidden-lake/releases](https://github.com/miragef2f/mirage-network/releases "releases"). 
+All cmd programs are compiled for {`amd64`, `arm64`} ARCH and {`windows`, `linux`, `darwin`} OS as pattern = `appname_arch_os`. In total, one application is compiled into six versions. The entire list of releases can be found here: [github.com/miragef2f/mirage-network/releases](https://github.com/miragef2f/mirage-network/releases "releases"). 
 
 ## Dependencies
 
@@ -82,14 +82,14 @@ Launching an anonymous network is primarily the launch of an anonymizing `Mirage
 ### 1. Running from source code
 
 ```bash
-$ go install github.com/miragef2f/hidden-lake/cmd/Mirage@latest
+$ go install github.com/miragef2f/mirage-network/cmd/Mirage@latest
 $ Mirage
 ```
 
 ### 2. Running from release version
 
 ```bash
-$ wget https://github.com/miragef2f/hidden-lake/releases/latest/download/Mirage_amd64_linux
+$ wget https://github.com/miragef2f/mirage-network/releases/latest/download/Mirage_amd64_linux
 $ chmod +x Mirage_amd64_linux
 $ ./Mirage_amd64_linux
 ```
